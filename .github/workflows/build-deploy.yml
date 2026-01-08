@@ -7,8 +7,8 @@ jobs:
     environment:
       name: testing
     env:
-      DATABASE_HOSTNAME: ${{secrets.DATABASE_HOSTNAME}}
-      DATABASE_PORT: ${{secrets.DATABASE_PORT}}
+      DATABASE_HOSTNAME: localhost  # Changed from secret to localhost
+      DATABASE_PORT: 5432
       DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
       DATABASE_NAME: ${{secrets.DATABASE_NAME}}
       DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: pulling git repo
         uses: actions/checkout@v2
-      - name: Install python version 3.9
+      - name: Install python version 3.13
         uses: actions/setup-python@v2
         with:
           python-version: "3.13"
@@ -45,4 +45,4 @@ jobs:
       - name: test with pytest
         run: |
           pip install pytest
-          pytest
+          pytest -v -s
